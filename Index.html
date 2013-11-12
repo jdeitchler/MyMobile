@@ -1,0 +1,517 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>    
+     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+     <script src="http://cdn.kendostatic.com/2013.1.319/js/kendo.all.min.js"> </script>   
+     <link href="http://cdn.kendostatic.com/2013.1.319/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/Style.css" rel="stylesheet" />
+    <link href="kendo/css/kendo.common.min.css" rel="stylesheet" />
+    <link href="kendo/css/kendo.default.min.css" rel="stylesheet" />
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.all.min.js"></script>
+    <script>
+        var MyAgDataMobile = MyAgDataMobile || {};
+    </script>
+        <script src="js/field-list.js"> </script> 
+    <script src="js/configuration.js"> </script>
+    <script src="js/common.js"> </script>
+    <script src="js/data-access.js"> </script>
+   <script src="js/user-account.js"> </script>
+    <script src="js/movie-tickets.js"> </script> 
+    <script src="js/movie-list.js"> </script>
+    <script src="js/theaters-movie-list.js"> </script>
+    <script src="js/book-tickets.js"> </script>
+    <script src="js/trailers.js"> </script>   
+    <script src="js/grower-list.js"> </script> 
+    <script src="js/field-detail.js"> </script> 
+   
+    <style>
+        .no-backbutton .km-back {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login View -->
+    <div data-role="view" data-layout="account-layout" data-title="MyAgData Login" 
+    data-model="MyAgDataMobile.userAccount.viewModel" id="account-view">
+        <div id="usracc-login-section"><br /><br />
+            <ul data-role="listview" data-style="inset">
+                <li>
+                    <label>User Name:  </label>
+                    <input type="text" data-bind="value: userName" id="user-acc-username" />
+                </li>
+                <li>
+                    <label>Password:  </label>
+                    <input type="text" id="user-acc-password" data-bind="value: password" />
+                </li>
+            </ul>
+            <div class="centerAlign">
+                <a data-role="button" class="k-button" id="login-button"  data-bind="click: userLogin">   Login   </a>
+            </div>
+        </div> 
+    </div>
+    <div data-role="layout" data-id="account-layout">
+        <header data-role="header">
+            <div data-role="navbar" id="Div2">
+                <span data-role="view-title">MyAgData Login</span>
+                <a data-align="right" style="display: none" class="mt-main-layout-btn-logoff"
+                    data-click="MyAgDataMobile.userAccount.viewModel.logOff" data-role="button">Log Off</a> 
+            </div>
+        </header>
+    </div>
+
+    <!-- Grower View -->
+    <div data-role="view" id="Growerlist-view" data-title="Growers"
+        data-show="MyAgDataMobile.growerList.showGrowerList"
+        data-model="MyAgDataMobile.growerList.viewModel"
+        data-layout="grower-layout" class="no-backbutton">
+
+        <!--Grower List -->
+        <ul id="mt-main-grower-list-view"  data-style="inset" data-role="listview"
+              data-template="grower_template"
+            data-filterable="{field:'BusinessName', operator:'startsWith'}"
+            data-bind="source: growerList">
+        </ul>
+    </div>
+    <!-- Grower layout -->
+    <div data-role="layout" data-id="grower-layout">
+        <header data-role="header">
+            <div data-role="navbar" id="Div1">
+                <span data-role="view-title">Growers</span>
+                <a data-align="left" class="mt-main-layout-btn-logoff"
+                    data-click="MyAgDataMobile.userAccount.viewModel.logOff" data-role="button">Log Off</a> 
+            </div>
+        </header>
+    </div>
+
+    <!-- PartField View -->
+    <div data-role="view" id="fieldlist-view" data-title="Part Fields" 
+        data-model="MyAgDataMobile.fieldList.viewModel" data-group="GroupBy"
+         data-show="MyAgDataMobile.fieldList.show"  data-layout="myagdata-layout">
+        <!-- PartField Button Group -->
+        <ul data-role="buttongroup" data-index="0" data-select="MyAgDataMobile.fieldList.mobileListViewDataBindInitGrouped">
+            <li>Field</li>
+            <li>County</li>
+            <li>State</li>
+            <li>Crop</li>
+        </ul>
+
+         <!-- PartField View -->         
+         <ul id="partfield-list" data-role="listview" data-endlessscroll="false"
+             data-template="fieldlist_template">
+         </ul>
+      <!--   data-endlessscroll="true" -->          
+    </div>
+
+    <!-- PartField Details View -->
+    <div data-role="view" data-title="FieldDetail" data-init="detailInit"
+         data-show="MyAgDataMobile.fieldDetail.showDetail"  
+         data-model="MyAgDataMobile.fieldDetail.viewModel"
+         id="fieldDetails-view">
+
+         <header data-role="header">
+            <div data-role="navbar">
+                <a class="nav-button" data-align="left" data-role="backbutton" id="cancel">Cancel</a>
+                <span data-role="view-title">Details</span>
+                <a class="nav-button" data-align="right" data-role="button" data-bind="click: updateClick " id="done">Update</a>
+            </div>
+        </header>
+
+        <form>
+            <ul data-role="listview" id="edit-listview" data-style="inset" onclick="">
+                <li>
+                    <label>Field ID:
+                        <input type="text" data-bind="value: partFieldId"/>
+                    </label>
+                </li>
+                    <li>Crop Name:
+                            <select id="CropDropDown" name="Crop" 
+                                    data-role="dropdownlist" data-change="cropSelect" 
+                                    data-bind="source: cropList, value: cropCode" 
+                                    data-text-field="Commodity_Name" data-value-field="Id" 
+                                    required data-required-msg="Crop is required">
+                            </select>
+                    </li>
+                    <li>Practice:  
+                        <select id="Practice" name="Practice" 
+                                data-role="dropdownlist" 
+                                data-bind="source: practiceList, value: practiceCode" 
+                                data-text-field="Practice_Abbreviation" data-value-field="Practice_Code" 
+                                required data-required-msg="Practice is required">
+                        </select>
+                    </li>
+                    <li>Type:  
+                        <select id="Type" name="Type" 
+                                data-role="dropdownlist" 
+                                data-bind="source: typeList, value: typeCode" 
+                                data-text-field="Full_Type_Name" data-value-field="Type_Code" 
+                                required data-required-msg="Type is required">
+                        </select>
+                    </li>
+                    <li>Planting Date:
+                            <input id="plantingdate" style="width:150px;" />
+                    </li>
+                    <li><span style="text-align:right">Acres:</span>                      
+                            <input type="text" id="Text3" data-bind="value: acres" />
+                    </li>
+                     <li>
+                        <label>Share
+                            <input type="number" value="0" data-bind="value: share"/>
+                        </label>
+                    </li>
+                    <li>Field Name:                      
+                            <input type="text" id="Text2" data-bind="value: fieldName" />
+                    </li>
+            </ul>
+        </form>
+    </div>
+
+     <div data-role="view" id="history-view" data-title="History"  data-layout="myagdata-layout">
+        <div style="padding: 17px; color: white; font-size: large"><br /><br />
+            List of previous work items coming soon..<br /><br />
+             <div style="display:table-cell; vertical-align:middle; text-align:center">
+                <img src="images/ComingSoon3.jpg" /> 
+             </div>
+        </div>
+    </div>
+
+        <!-- User Account view -->
+    <div data-role="view" id="useracount-view" data-title="About" data-layout="myagdata-layout">
+        <div style="padding: 17px; font-size: large"><br /><br />
+            This is a sample application developed for the book <span class="mt-highlight-label">Building Mobile Applications using Kendo UI Mobile and ASP.NET Web API </span>
+        </div>
+    </div>
+
+        <!-- about view -->
+    <div data-role="view" id="performance-view" data-title="Performance" data-layout="myagdata-layout">
+        <div style="padding: 17px; color: white; font-size: large"><br /><br />
+            Performance Settings coming soon...<br /><br />
+             <div style="display:table-cell; vertical-align:middle; text-align:center">
+                <img src="images/ComingSoon3.jpg" /> 
+             </div>
+        </div>
+    </div>
+
+    <!-- about view -->
+    <div data-role="view" id="more-view" data-title="More" data-layout="myagdata-layout">
+        <div style="padding: 17px; color: white; font-size: large"><br /><br />
+            Future Ag Mobile Functions coming soon..<br /><br />
+             <div style="display:table-cell; vertical-align:middle; text-align:center">
+                <img src="images/ComingSoon3.jpg" /> 
+             </div>
+        </div>
+    </div>
+
+    <!-- layout -->
+    <div data-role="layout" data-id="myagdata-layout">
+        <header data-role="header">
+            <div data-role="navbar" id="mt-main-layout-navbar">
+                <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
+                <span data-role="view-title">Field Details</span>
+          <!--      <a data-align="left" style="display: none" class="mt-main-layout-btn-logoff"
+                    data-click="MyAgDataMobile.userAccount.viewModel.logOff" data-role="button">Log Off</a> -->
+            </div>
+        </header>
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a href="#fieldlist-view"   data-icon="landicon" >
+                    <br />Field List
+                </a>
+                <a href="Trailers.html"   data-icon="globe" >
+                     <br />Map 
+                </a>
+                 <a href="#history-view"   data-icon="recents" >                    
+                        <br />History
+                </a>
+                <a href="#performance-view" data-icon="settings" >                    
+                        <br />Performance
+                </a>
+                <a href="#more-view" data-icon="more" >                    
+                        <br />More
+                </a>
+            </div>
+        </footer>
+    </div>
+
+   <style scoped>
+       
+    .km-ios #partfield-list .km-listview .km-list > li {
+        border:double;
+    }
+    
+   #account-view .km-content{
+    background-image: url('../images/GreenField.jpeg');
+    background-size: auto 100%;
+    background-repeat: repeat;
+    }
+
+    .km-ios #partfield-list .km-listinset > li,
+    .km-ios #partfield-list .km-listgroupinset .km-list > li,
+    .km-ios #partfield-list .km-listinset > li:first-child,
+    .km-ios #partfield-list .km-listgroupinset .km-list >  li:first-child,
+    .km-ios #partfield-list .km-listinset > li:last-child,
+    .km-ios #partfield-list .km-listgroupinset .km-list >  li:last-child {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        border-color: #565656;
+    }
+
+    .km-ios #edit-listview .km-navbar,
+    .km-ios #edit-detailview .km-navbar {
+        background: -webkit-gradient(linear, 50% 0, 50% 100%, 
+                                    color-stop(0, rgba(255, 255, 255, 0.5)), 
+                                    color-stop(0.06, rgba(255, 255, 255, 0.45)), 
+                                    color-stop(0.5, rgba(255, 255, 255, 0.2)), 
+                                    color-stop(0.5, rgba(255, 255, 255, 0.15)), 
+                                    color-stop(1, rgba(100, 100, 100, 0))), 
+                        url(../../content/shared/images/patterns/pattern1.png);
+        background: -moz-linear-gradient(center top , rgba(255, 255, 255, 0.5), 
+                                                      rgba(255, 255, 255, 0.45) 6%, 
+                                                      rgba(255, 255, 255, 0.2) 50%, 
+                                                      rgba(255, 255, 255, 0.15) 50%, 
+                                                      rgba(100, 100, 100, 0)), url(../../content/shared/images/patterns/pattern1.png);
+    }
+    .km-ios #edit-listview .km-navbar .km-button,
+    .km-ios #edit-detailview .km-navbar .km-button {
+        background-color: white;
+    }
+    .km-ios #edit-detailview #done {
+        background-color: Green;
+    }
+    .km-tablet .km-ios #edit-listview .km-view-title,
+    .km-tablet .km-ios #edit-detailview .km-view-title {
+        color: white;
+        text-shadow: 0 -1px rgba(0,0,0,.5);
+    }
+    .km-ios #edit-listview .km-content,
+    .km-ios #edit-detailview .km-content,
+    .km-ios #edit-detailview .km-insetcontent,
+    .km-ios #edit-listview li,
+    .km-ios #edit-detailview li {
+        background: white;
+    }
+    .km-ios #edit-listview li > a,
+    .km-ios #edit-detailview li,
+    .km-ios #edit-detailview input,
+    .km-ios #edit-detailview li > a {
+        text-decoration: none;
+        color: white;
+    }
+
+    .km-ios #edit-detailview .km-listinset > li,
+    .km-ios #edit-detailview .km-listgroupinset .km-list > li,
+    .km-ios #edit-detailview .km-listinset > li:first-child,
+    .km-ios #edit-detailview .km-listgroupinset .km-list >  li:first-child,
+    .km-ios #edit-detailview .km-listinset > li:last-child,
+    .km-ios #edit-detailview .km-listgroupinset .km-list >  li:last-child {
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        border-color: white;
+    }
+    .km-ios #edit-detailview .km-listinset > li:first-child,
+    .km-ios #edit-detailview .km-listgroupinset .km-list > li:first-child {
+        border-width: 1px;
+    }
+    .km-ios #edit-detailview .km-listinset > li,
+    .km-ios #edit-detailview .km-listgroupinset .km-list > li {
+        border-width: 0 1px 1px;
+    }
+    #edit-listview .delete {
+        display:none;
+        position: absolute;
+        top: .15em;
+        right: .5em;
+        width: 60px;
+        background-color: white;
+        color: white;
+    }
+
+    .km-arrow-e:after,
+    .km-arrow-e:before
+    {
+        content: "\E0ef";
+    }
+
+    .km-listview-link:after {
+    color: #7B7B7B;
+    border-color: #777;
+    content: "\a0";
+    display: block;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    margin-top: -0.32rem;
+    margin-left: -0.2rem;
+    border-style: solid;
+    border-width: .24rem .24rem 0 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    width: .5rem;
+    height: .5rem;
+    display: inline-block;
+    vertical-align: middle;
+    }
+
+.km-custom {
+  -webkit-mask-box-image: url("../images/add.png");
+}
+
+    .km-myCustomIcon:after,
+    .km-myCustomIcon:before
+    {
+        content: url("../images/add.png");
+    }
+
+    @font-face {
+    font-family: "Hats";
+    src: url("../fonts/-hats.woff") format("woff"),
+         url("../fonts/-hats.ttf") format("truetype");
+}
+.km-chat:after,
+.km-chat:before
+{
+    font: 1em/1em "Hats";
+    content: '\E0a3';
+}
+
+a.k-button {
+   height: 33px;
+   width: 150px;
+   font-size: 14px;
+   margin: 5px;
+   text-decoration: none;
+   background-color: #2c2c2c;
+}
+
+#content { 
+  overflow:auto; 
+  width: 100%; 
+  background: white; 
+} 
+
+
+#left { 
+  width: 85%; 
+  padding: .5em; 
+  background: white; 
+} 
+
+#right { 
+  width: 2%; 
+  margin-top: 10px;
+  padding: .5em; 
+  background: white; 
+} 
+
+#left  { float:left;  }
+#right { float:right; } 
+
+</style>
+
+
+      <!--template for Grower list -->
+    <script type="text/x-kendo-template" id="grower_template">  
+        # var ecodedURI = '\\#fieldlist-view?GrowerId=' +
+                         Id + '&BusinessName=' + 
+                         BusinessName + '&CropYear=' +
+                         CropYearId #
+
+   <a href="#:ecodedURI#" >
+        <div class="mt-grower-details">
+        <span class="mt-listitem-title">#:BusinessName# </span><br/> 
+        <span class="mt-highlight-label">#:County# County, #:State#</span>
+        </div>
+      </a>    
+    </script>
+
+
+    <script type="text/x-kendo-tmpl" id="fieldtemplate">
+        <a href="TenantView.html">#:cropName#</a>
+    </script>
+
+    <!-- template for Field list for each Field -->
+    <script type="text/x-kendo-template" id="fieldlist_template">  
+
+    # var ecodedURI = '\\#fieldDetails-view?PartFieldId=' +
+                        PartFieldId + '&GrowerPartFieldId=' + 
+                         GrowerPartFieldId + '&GrowerId=' + 
+                         GrowerId  # 
+        
+     #if(IsLocked == false){# 
+        <a href="#:ecodedURI#">
+        <div id="content">
+          <div id="left">
+               <span class="mt-listitem-title">#:BusinessName# </span><br> 
+               <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >Crop: #:CommodityName# Acres: #:ReportedAcres#  #:PartFieldShapeCountyName #, #:PartFieldShapeStateAbbreviation # </span>      
+          </div>
+          <div id="right">
+             <img src="../images/EditIcon.png" alt="" class="inline" style="max-width: 25px" /></a>
+          </div>
+        </div>
+     #} else {#
+        <div id="content">
+          <div id="left">
+               <span class="mt-listitem-title">#:BusinessName# </span><br> 
+               <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >Crop: #:CommodityName# Acres: #:ReportedAcres#  #:PartFieldShapeCountyName #, #:PartFieldShapeStateAbbreviation # </span>      
+          </div>
+          <div id="right">
+             <img src="../images/LockedIcon.png" alt="" class="inline" style="max-width: 25px" />
+          </div>
+        </div>
+     #}#
+      
+    </script>
+    <!-- templates end -->
+
+    <script>
+        $(document).ready(function () {
+            // create DatePicker from input HTML element
+            $("#datepicker1").kendoDatePicker();
+        });
+
+        MyAgDataMobile.main.initializeApp();
+
+        function onGrowersClick(e) {
+            MyAgDataMobile.common.navigateToView('#Growerlist-view');
+        }
+
+    </script>
+    <script>
+        //Change Crop Function
+        function cropSelect(e) {
+            alert('Select Crop');
+            //   var dropDownVal = $("#CropDropDown").val();
+            //    alert("value = " + dropDownVal);
+            ////alert("Crop Code Value = " + MyAgDataMobile.fieldDetail.viewModel.cropCode);
+            ////alert("type code value = " + MyAgDataMobile.fieldDetail.viewModel.typeCode);
+            MyAgDataMobile.fieldDetail.viewModel.typeCode = "";
+            MyAgDataMobile.fieldDetail.viewModel.practiceCode = "";
+            ////alert("type code value = " + MyAgDataMobile.fieldDetail.viewModel.typeCode);
+            $("#Type").data('kendoDropDownList').value(MyAgDataMobile.fieldDetail.viewModel.typeCode);
+            $("#Practice").data('kendoDropDownList').value(MyAgDataMobile.fieldDetail.viewModel.practiceCode);
+            MyAgDataMobile.fieldDetail.loadPracType();
+        }
+
+       function detailInit(e) {
+            var view = e.view;
+//            view.element.find("#done").data("kendoMobileButton").bind("click", function () {
+//           //     dataSource.one("change", function () {
+//                    view.loader.hide();
+//                //    window.kendoMobileApplication.navigate("#:back");
+//                //    MyAgDataMobile.common.navigate("#:back");
+//                MyAgDataMobile.main.getKendoApplication.navigate("#:back");
+
+//  //              });
+////
+//    //            view.loader.show();
+//      //          dataSource.sync();
+//            });
+        }
+
+</script>
+</body>
+</html>
