@@ -1,0 +1,8 @@
+C:\Work\Projects\MyAgData\AFirstProject\MyAgDataMobile\bin\MyAgDataMobile.dll
+C:\Work\Projects\MyAgData\AFirstProject\MyAgDataMobile\bin\MyAgDataMobile.pdb
+C:\Work\Projects\MyAgData\AFirstProject\MyAgDataMobile\obj\Debug\MyAgDataMobile.dll
+C:\Work\Projects\MyAgData\AFirstProject\MyAgDataMobile\obj\Debug\MyAgDataMobile.pdb
+C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\bin\MyAgDataMobile.dll
+C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\bin\MyAgDataMobile.pdb
+C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\obj\Debug\MyAgDataMobile.dll
+C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\obj\Debug\MyAgDataMobile.pdb
