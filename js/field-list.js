@@ -86,12 +86,21 @@ MyAgDataMobile.fieldList = (function () {
     }
 
     function initializeApp2() {
-        //initialize app
+
         application = new kendo.mobile.Application(document.body,
-         {
-             //   transition: 'slide',
-             loading: "<h3>Loading...</h3>"
-         });
+            {
+                //   transition: 'slide',
+                loading: "<h3>Loading...</h3>",
+               // platform: 'ios6',
+                skin: "flat"
+            });
+
+        ////initialize app
+        //application = new kendo.mobile.Application(document.body,
+        // {
+        //     //   transition: 'slide',
+        //     loading: "<h3>Loading...</h3>"
+        // });
 
         //Display loading image on every ajax call
         $(document).ajaxStart(function () {
