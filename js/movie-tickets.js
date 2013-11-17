@@ -13,8 +13,8 @@ MyAgDataMobile.main = (function () {
             {
                 //   transition: 'slide',
                 loading: "<h3>Loading...</h3>",
-              //  platform: 'ios6',
-                skin: "flat"
+               // platform: 'ios6'
+                 skin: "ios"
             });
 
 

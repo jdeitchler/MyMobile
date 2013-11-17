@@ -24,8 +24,8 @@
     background-image:none;
  }
 
-.km-ios6 *:not(.km-tabstrip):not(.km-buttongroup) > .km-button {
-    background-color: rgb(31, 73, 33);
+.km-ios6 .km-view-title {
+    background-color: #2cabe2;
 }
 
 /*this removes the dirty blue line background
@@ -37,7 +37,6 @@
 
 
 /*user styles*/
-
 .listpadding {
     padding-left: 1em; padding-bottom: 1em; text-decoration: none;
 }

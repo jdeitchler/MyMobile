@@ -43,8 +43,8 @@ MyAgDataMobile.growerList = (function () {
             {
                 //   transition: 'slide',
                 loading: "<h3>Loading...</h3>",
-              //  platform: 'ios6',
-                skin: "flat"
+                skin: 'ios'
+              //  skin: "flat"
             });
 
         ////initialize app

@@ -6,3 +6,4 @@ C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\bin\MyAgDataMobile.
 C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\bin\MyAgDataMobile.pdb
 C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\obj\Debug\MyAgDataMobile.dll
 C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\obj\Debug\MyAgDataMobile.pdb
+C:\Work\Projects\MyAgData\Code\IdmMyAgData\IdmMyAgDataMobile\obj\Debug\IdmMyAgDataMobile.csprojResolveAssemblyReference.cache
