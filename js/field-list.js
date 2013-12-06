@@ -34,6 +34,7 @@ MyAgDataMobile.fieldList = (function () {
                 if (result.success === true) {
                       viewModel.set("fieldList", result.data);
                       $("#partfield-list").kendoMobileListView({
+                          style: "inset",
                           dataSource: kendo.data.DataSource.create({ data: viewModel.fieldList, group: "GroupBy" }),
                           //  template: "${Script1Template}",
                           template: kendo.template($("#fieldlist_template").html()) //,
@@ -60,18 +61,33 @@ MyAgDataMobile.fieldList = (function () {
 
         //hard coding today's date for selected date
         viewModel.set('selectedDate', new Date().toLocaleDateString());
+     //   alert("New Page");
         //read the selected movie's details from the query string
-        viewModel.set("selectedGrower", {
-            growerId: e.view.params.GrowerId,
-            growerName: e.view.params.BusinessName,
-            cropYear: e.view.params.CropYear
-        }); 
+        if (e.view.params.GrowerId != null) {
+            viewModel.set("selectedGrower", {
+                growerId: e.view.params.GrowerId,
+                growerName: e.view.params.BusinessName,
+                cropYear: e.view.params.CropYear
+            });
+
+            var titleString = viewModel.selectedGrower.growerName; // + '\r\n' + '2014 - Spring Plant';
+
+            $("#mt-main-layout-navbar").data("kendoMobileNavBar").title(titleString.toString());
+        }
+      //  $("#nav-button").kendoMobileBackButton();
+
+//        var navbar = $("#NavBarTitle").kendoMobileNavBar();
+  //      navbar = "test";
+
         getFieldList("FieldName");
+     //   $(view.header[0]).find("km-view-title").html("CUSTOM TEXT HERE");
     }
 
     //retrieve list of theaters from the service
     function showGrowerList() {
         MyAgDataMobile.common.navigateToView('#Growerlist-view');
+
+ 
     }
 
     function mobileListViewDataBindInitGrouped(e) {

@@ -64,7 +64,7 @@
         <header data-role="header">
             <div data-role="navbar" id="Div2">
                 <span data-role="view-title">MyAgData Login</span>
-                <a data-align="right" style="display: none" class="mt-main-layout-btn-logoff"
+                <a data-align="right" style="display: none" id="logOffButton" class="mt-main-layout-btn-logoff"
                     data-click="MyAgDataMobile.userAccount.viewModel.logOff" data-role="button">Log Off</a> 
             </div>
         </header>
@@ -95,7 +95,7 @@
     </div>
 
     <!-- PartField View -->
-    <div data-role="view" id="fieldlist-view" data-title="Part Fields" 
+    <div data-role="view" id="fieldlist-view" data-title="PartField" 
         data-model="MyAgDataMobile.fieldList.viewModel" data-group="GroupBy"
          data-show="MyAgDataMobile.fieldList.show"  data-layout="myagdata-layout">
         <!-- PartField Button Group -->
@@ -107,7 +107,7 @@
         </ul>
 
          <!-- PartField View -->         
-         <ul id="partfield-list" data-role="listview" data-endlessscroll="false"
+         <ul id="partfield-list" data-role="listview" data-type="group" data-style="inset" data-endlessscroll="false"
              data-template="fieldlist_template">
          </ul>
       <!--   data-endlessscroll="true" -->          
@@ -216,27 +216,27 @@
     <div data-role="layout" data-id="myagdata-layout">
         <header data-role="header">
             <div data-role="navbar" id="mt-main-layout-navbar">
-                <a class="nav-button" data-align="left" data-role="backbutton">Back</a>
-                <span data-role="view-title">Field Details</span>
+                <a class="nav-button" id="backPartField" data-align="left" data-icon="myBackIcon" data-role="backbutton"></a>
+                <span data-role="view-title" class="NavBarTitle">PartField</span><br /><span class="titleDetails" id="titleDetails">2014 - Spring Plant</span>
           <!--      <a data-align="left" style="display: none" class="mt-main-layout-btn-logoff"
                     data-click="MyAgDataMobile.userAccount.viewModel.logOff" data-role="button">Log Off</a> -->
             </div>
         </header>
         <footer data-role="footer">
-            <div data-role="tabstrip">
-                <a href="#fieldlist-view"  data-icon="landicon" >
+            <div data-role="tabstrip"  data-select='tabChange' id="custom-tabstrip">
+                <a href="#fieldlist-view" id="fieldlist-profile" data-icon="fieldList" >
                     <br />Field List
                 </a>
-                <a href="Trailers.html"  data-icon="globe" >
+                <a href="Trailers.html"  data-icon="maps" >
                      <br />Map 
                 </a>
-                 <a href="#history-view"   data-icon="recents" >                    
-                        <br />History
+                 <a href="#history-view"   data-icon="season" >                    
+                        <br />Season
                 </a>
-                <a href="#performance-view" data-icon="settings" >                    
-                        <br />Performance
+                <a href="#performance-view" data-icon="preferences" >                    
+                        <br />Preferences
                 </a>
-                <a href="#more-view" data-icon="more" >                    
+                <a href="#more-view" data-icon="moredetails" >                    
                         <br />More
                 </a>
             </div>
@@ -263,8 +263,18 @@
     .km-ios #partfield-list .km-listgroupinset .km-list >  li:last-child {
         box-shadow: none;
         -webkit-box-shadow: none;
-        border-color: #565656;
-    }
+        border-color: #565656
+        }
+
+    .km-listinset, 
+    .km-listgroupinset .km-list {
+        overflow: inherit;
+        }
+
+    .km-ios .km-listinset>li, 
+    .km-ios .km-listgroupinset .km-list>li {
+    margin-right: -.7em;
+        }
 
     .km-ios #edit-listview .km-navbar,
     .km-ios #edit-detailview .km-navbar {
@@ -372,89 +382,396 @@
     vertical-align: middle;
     }
 
-.km-custom {
-  -webkit-mask-box-image: url("../images/add.png");
-}
+    .km-custom {
+      -webkit-mask-box-image: url("../images/add.png");
+    }
+    
+  /*  .km-ios .km-button .km-icon:before, .km-ios .km-button .km-contactadd:before, .km-ios .km-button .km-rowdelete:before, .km-ios .km-button .km-rowinsert:before, .km-ios .km-button .km-detaildisclose:before {
+    display: none;
+    }
+      */
+    .km-myBackIcon:after,
+    .km-myBackIcon:before
+    {
+     /*  content: "\e0e5"; */
+     content: "";
+     background: url("images/iconbackarrow.png");
+   /*  background-size: 100%; */
+        /* Firefox 
+        -moz-transform:rotate(180deg); */
+        /* Safari and Chrome 
+        -webkit-transform:rotate(180deg); */
+        /* Opera 
+        -o-transform:rotate(180deg); */
+        /* IE9 
+        -ms-transform:rotate(180deg); */
+        float: left;
+    /*    margin-left: 5px;
+        margin-top: 8px;   */
+        display: block; 
+                height: 5px;
+        width: 5px;
+    }
 
     .km-myCustomIcon:after,
     .km-myCustomIcon:before
     {
         content: url("../images/add.png");
+
     }
 
     @font-face {
     font-family: "Hats";
     src: url("../fonts/-hats.woff") format("woff"),
          url("../fonts/-hats.ttf") format("truetype");
-}
-.km-chat:after,
-.km-chat:before
-{
-    font: 1em/1em "Hats";
-    content: '\E0a3';
-}
-
-
-#content { 
-  width: 100%; 
-  background: white; 
-} 
-
-
-#left { 
-  width: 85%; 
-  padding: .5em; 
-  background: #f0f0f0;; 
-} 
-
-#right { 
-  width: 2%; 
-  margin-top: 10px;
-  padding: .5em; 
-  background: #f0f0f0;; 
-} 
-
-#left  { float:left;  }
-#right { float:right; } 
-
- #login-button{
-   height: 20px;
-   width: 120px;
-   font-size: 14px;
-   vertical-align: central;
-   text-align: center;
-   background-color: #4b8dc1;
-   margin: 5px;
-  opacity: 55;
-}
-
-.loginLabel  
-    {
-        display:block; 
-        text-align:right;
-        color: black;
-        padding-right: 10px;
     }
 
-.loginDivLeft 
-        {
-   width: 50%;
-       }
-.loginDivRight 
-        {
-   width: 50%;
-       }
+    .km-chat:after,
+    .km-chat:before
+    {
+        font: 1em/1em "Hats";
+        content: '\E0a3';
+    }
 
-       .km-ios .km-header > .km-buttongroup .km-state-active, .km-ios .km-footer > .km-buttongroup .km-state-active, .km-ios .km-content .km-buttongroup .km-state-active {
-           color: #fff;
-           border-color: rgba(0,0,0,0.4);
+    #content { 
+      width: 100%; 
+      background: white; 
+    } 
+
+        #left { 
+          width: 65%; 
+          font-size: small;
+          padding: .2em; 
+          background: white;
+          float:left; 
+        } 
+
+        #right { 
+          width: 16%; 
+          margin-top: 2px;
+          display: inline;
+          background: white;
+          float: right;
+        } 
+
+        .km-ios .km-list>li {
+        background: white;
+        }
+
+         #login-button{
+           height: 20px;
+           width: 120px;
+           font-size: 14px;
+           vertical-align: central;
+           text-align: center;
            background-color: #4b8dc1;
-       }
-.km-ios .km-list .k-dropdown-wrap .k-input {
-color: #385487;
-text-align: left;
-}
+           margin: 5px;
+          opacity: 55;
+        }
 
+        .loginLabel  {
+                display:block; 
+                text-align:right;
+                color: black;
+                padding-right: 10px;
+            }
+
+        .loginDivLeft  {
+           width: 50%;
+               }
+
+        .loginDivRight {
+           width: 50%;
+               }
+
+        .km-ios .km-header > .km-buttongroup .km-state-active, .km-ios .km-footer > .km-buttongroup .km-state-active, .km-ios .km-content .km-buttongroup .km-state-active {
+               color: #fff;
+               border-color: rgba(0,0,0,0.4);
+               background-color: rgb(35, 139, 173);
+           }
+          
+        .km-ios .km-list .k-dropdown-wrap .k-input {
+        color: #385487;
+        text-align: left;
+        }
+
+        .km-ios .km-navbar {
+         background: -webkit-linear-gradient(top,  
+                                    rgba(110, 217, 254, 0.95) 0%, 
+                                    rgba(97, 168, 192, 0.95) 50%,
+                                    rgba(97, 168, 191, 0.95) 100%);
+        }
+        /* Chrome10+,Safari5.1+ */
+        .nav-button {
+           height: 17px;
+            }
+
+        .km-ios .km-button {
+            width: 56px;
+            height: 1.2em;
+            margin-top: .3em;
+            }
+
+        #backPartField {
+            width: 25px;
+            height: 2.8em;
+            margin-top: .5em;
+            }
+
+        .km-detail .km-icon, .km-button .km-icon, .km-list .km-icon, .km-ios .km-button .km-icon {
+            font-size: 1.5em;
+            margin-top: 1px;
+            }
+
+        .km-toolbar .km-button, .km-navbar .km-button {
+            height: 1.2rem;
+            }
+       .km-ios .km-view-title, .km-ios .km-dialog-title {
+           line-height: 1.9em;
+       }
+
+       .km-ios .km-button {
+   /*        width: 25px; */
+       }
+
+        .km-ios .km-navbar {
+            line-height: 1.3em; 
+            font-size: medium;
+            }
+
+
+     /*   .NavBarTitle */
+        #mt-main-layout-navbar {
+            line-height: 1.3em; 
+            font-size: xx-small;
+            }
+
+         .NavBarTitle {
+            line-height: 1em;
+            font-size: medium;
+            vertical-align: bottom;
+            }  
+           
+        .titleDetails {
+            font-size: small;
+            vertical-align: top;
+            line-height: inherit;
+            }
+             
+        /* .km-ios .km-tabstrip, */
+        .km-ios .km-toolbar, 
+        .km-ios .km-navbar, 
+        .km-ios .km-button, 
+        .km-ios .km-popup .k-item, 
+        .km-ios .km-actionsheet>li>a {
+            background-color: rgb(33,133,166);
+            }
+
+        .km-ios .km-listgroupinset .km-group-title {
+            color: white;
+            }
+        .km-ios, .km-ios .km-content {
+            background-color: black;
+            }
+        .km-root .km-buttongroup {
+            margin-top: 20px;
+            margin-bottom: -10px;
+            width: 93%;
+            }
+
+        .km-ios .km-listgroupinset .km-group-title {
+            margin-left: -14px;
+            font-weight: 100;
+            font-size: large;
+            margin-bottom: 2px;
+            }
+
+        .km-map:before, .km-map:after {
+            content: url("../images/IconMap.png");
+            }
+
+    /*    .km-ios .km-fieldList::after, .km-fieldList::before {
+            content: url("../images/IconFieldListSelected.png");
+            background-color: black;
+            margin: 0;
+            width: 33px;
+            height: 22px;
+            }
+        */
+ 
+    
+        .km-ios #custom-tabstrip .km-button:active .km-fieldList::before, 
+        .km-ios #custom-tabstrip .km-state-active .km-fieldList::before {
+            background-image: url("../images/IconFieldListSelected.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+        .km-ios .km-fieldList::after, .km-fieldList::before {
+            background-image: url("../images/IconFieldList.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+
+        .km-ios #custom-tabstrip .km-button:active .km-maps::before, 
+        .km-ios #custom-tabstrip .km-state-active .km-maps::before {
+            background-image: url("../images/IconMapSelected.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+        .km-ios .km-maps::after, .km-maps::before {
+            background-image: url("../images/IconMap.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+        .km-ios #custom-tabstrip .km-button:active .km-season::before, 
+        .km-ios #custom-tabstrip .km-state-active .km-season::before {
+            background-image: url("../images/IconSeasonSelected.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+ 
+ /*       #custom-tabstrip .km-state-active .km-text .km-season::after,
+    #custom-tabstrip .km-state-active .km-icon .km-season::after
+    { */
+     	/* box-shadow: inset 0 0 20px #62cb62; */ /*   230e04; 
+        background-image: url("../images/IconSeasonSelected.png"); */
+    /*	color: #62cb62;
+        background-color: transparent; */
+  /*        background-image: url("../images/IconSeasonSelected.png");
+    }  */
+
+        .km-ios .km-season::after, .km-season::before {
+            background-image: url("../images/IconSeason.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+        
+
+        .km-ios #custom-tabstrip .km-button:active .km-preferences::before, 
+        .km-ios #custom-tabstrip .km-state-active .km-preferences::before {
+            background-image: url("../images/IconPreferencesSelected.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+        .km-ios .km-preferences::before, .km-preferences::after {
+            background-image: url("../images/IconPreferences.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+                  
+        
+        .km-ios #custom-tabstrip .km-button:active .km-moredetails::before, 
+        .km-ios #custom-tabstrip .km-state-active .km-moredetails::before {
+            background-image: url("../images/IconMoreSelected.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+              
+        .km-ios .km-moredetails::after, .km-moredetails::before {
+            background-image: url("../images/IconMore.png");
+            margin-left: -5px;
+            width: 40px;
+            height: 40px;
+            background-size: 100%;
+            }
+
+         .fieldlist-profile h2 {
+            display: inline-block;
+            font-size: 1.1em;
+            margin: 1.5em 0 0 .7em;
+            }
+
+        .fieldlist-profile h2 span {
+            display: block;
+            clear: both;
+            font-size: 1.8em;
+            margin: .1em 0 0 0;
+            }
+
+        .fieldlist-profile img {
+            width: 5em;
+            height: 5em;
+            float: left;
+            margin: 1em;
+            border: 1px solid rgba(0,0,0,.2);
+            -webkit-border-radius: 4em;
+            border-radius: 4em;
+            }
+    
+        .km-ios :-webkit-any(.km-back) {
+            -webkit-mask-image: none;
+            margin-left: 0em;
+            padding-left: .2em;
+            -webkit-shape-inside: none;
+            }
+
+        .km-ios.km-on-android .km-back {
+            -webkit-mask-image: none;
+            padding-left: .8em;
+            margin-left: 0;
+            }
+
+        .km-ios.km-on-android .km-back:after {
+            display: none;
+            }
+
+        .km-ios .km-back:after {
+            background: none;
+            }
+    
+        .km-myBackIcon:after, .km-myBackIcon:before {
+            content: "";
+            position: absolute;
+            background-image: url("images/iconbackarrow.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            width: 27px;
+            height: 27px;
+            margin-left: -4px;
+            }
+
+        .km-ios .mt-main-layout-btn-logoff {
+            width: 46px;
+            height: 1.3em;
+            font-size: small;
+            margin-top: .8em;
+            padding-top: .1em;
+            }
+
+        .km-ios .km-listinset, 
+        .km-ios .km-listgroupinset {
+            margin: .8em;
+            width: 90%;
+            }
+
+        .km-ios .km-listinset, 
+        .km-ios .km-listgroupinset {
+            margin: .8em;
+            width: 90%;
+            }
 </style>
 
 
@@ -480,6 +797,7 @@ text-align: left;
 
     <!-- template for Field list for each Field -->
     <script type="text/x-kendo-template" id="fieldlist_template">  
+    <div class="product">
 
     # var ecodedURI = '\\#fieldDetails-view?PartFieldId=' +
                         PartFieldId + '&GrowerPartFieldId=' + 
@@ -490,25 +808,25 @@ text-align: left;
         <a href="#:ecodedURI#">
         <div id="content">
           <div id="left">
-               <span class="mt-listitem-title">#:BusinessName# </span><br> 
-               <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >Crop: #:CommodityName# Acres: #:ReportedAcres#  #:PartFieldShapeCountyName #, #:PartFieldShapeStateAbbreviation # </span>      
-          </div>
+               <span class="mt-listitem-title">#:BusinessName# </span><br>
+               <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >#:CalculatedAcres# Planted of #:ReportedAcres# Acres</span> 
+         </div>
           <div id="right">
-             <img src="../images/EditIcon.png" alt="" class="inline" style="max-width: 25px" /></a>
+             <img src="../images/IconArrowWhite.png" alt="" class="inline" style="max-width: 20px" /><img src="../images/IconArrowGray.png" alt="" class="inline" style="max-width: 20px" /></a>
           </div>
         </div>
      #} else {#
         <div id="content">
           <div id="left">
-               <span class="mt-listitem-title">#:BusinessName# </span><br> 
-               <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >Crop: #:CommodityName# Acres: #:ReportedAcres#  #:PartFieldShapeCountyName #, #:PartFieldShapeStateAbbreviation # </span>      
+                <span class="mt-listitem-title">#:BusinessName# </span><br> 
+                <span class="mt-highlight-label" style="width:55px; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >#:CalculatedAcres# Planted of #:ReportedAcres# Acres</span>
           </div>
           <div id="right">
-             <img src="../images/LockedIcon.png" alt="" class="inline" style="max-width: 25px" />
+             <img src="../images/IconLocked.png" alt="" class="inline" style="max-width: 20px" /><img src="../images/IconArrowGray.png" alt="" class="inline" style="max-width: 20px" />
           </div>
         </div>
      #}#
-      
+      </div>
     </script>
     <!-- templates end -->
 
@@ -555,7 +873,81 @@ text-align: left;
 //    //            view.loader.show();
 //      //          dataSource.sync();
 //            });
-        }
+       }
+
+       function tabstrip_select(e) {
+           alert("selected tab");
+           var x = e.item;
+           var selectedIndex = $(e.item).index();
+       }
+
+       $(".partfield-list").kendoListView({
+           selectable: true
+       });
+
+       function tabChange(e) {
+
+       //    alert("old tab change " + this.currentItem().text()); //previous selected
+
+       //    alert("new tab change " + e.item.text()); //newly selected
+
+       //    this.currentItem()..background-image = 'url(../images/IconSeasonSelected.png)';
+
+   //        var curItem =   $("#tabstrip").data("kendoMobileTabStrip").currentItem();
+   //        alert(curItem.index()); // show tab Index
+   //        alert(curItem.text()); // shows tab text             
+
+         //  if (e.item.text() == 'Map')
+         //  e.item.css({ 'background-image': null });
+  //         e.item..css({ 
+              //  'background-image', url('../images/IconSeason.png'),
+   //             'margin-left': -5px,
+    //            'width': 40px,
+    //            'height': '40px',
+    //            'background-size': '100%'
+    //       });
+         //  else if (e.item.text() == 'Season')
+         //      e.item.css({ 'background-image': 'url(../images/IconSeasonSelected.png)' });
+         //  else if (e.item.text() == 'Preferences')
+         //      e.item.css({ 'background-image': 'url(../images/IconPreferencesSelected.png)' });
+         //  else if (e.item.text() == 'More')
+         //      e.item.css({ 'background-image': 'url(../images/IconMoreSelected.png)' });
+
+//                <br />Field List
+//            </a>
+ //           <a href="Trailers.html"  data-icon="maps" >
+//                 <br />Map 
+//            </a>
+//             <a href="#history-view"   data-icon="season" >                    
+ //                   <br />Season
+//            </a>
+//            <a href="#performance-view" data-icon="preferences" >                    
+//                    <br />Preferences
+//            </a>
+//            <a href="#more-view" data-icon="moredetails" >                    
+//                    <br />More
+
+
+       //    $('#km-preferences').css('background-image', ' url("../images/IconSeasonSelected.png");');
+
+       //    $('.km-preferences::before').kendoMobileTabStrip(  .css({ 'background-image': 'url(../images/IconSeasonSelected.png)' });
+     //      $('.km-maps::after').css({ 'background-image': 'url(../images/IconSeasonSelected.png)' });
+
+           $('#titleDetails').html("<span class='titleDetails' id='titleDetails'>test</span>");  // not supported
+         //  $("p").text("<b>Some</b> new text.");
+
+           /*
+           if (someCondition) {
+               e.preventDefault();
+               showConfirmation(showPopUpMsg, 'Unsaved changes', doTabActiveOnOK); // show confirmation dialog box
+           }
+           doTabActiveOnOK = function (button) {   // callback function
+               if (button == true) { //  if ok button is pressed
+                   $("#modal_tabs").data("kendoMobileTabStrip").select(1);  // not supported
+               }
+           } */
+       }
+
 
 </script>
 </body>

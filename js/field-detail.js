@@ -218,7 +218,9 @@
         //read the selected movie's details from the query string
         viewModel.set("growerPartFieldId", e.view.params.GrowerPartFieldId);
         viewModel.set("partFieldId", e.view.params.PartFieldId); //e.view.params.PartFieldId);
-            viewModel.set("growerId", e.view.params.GrowerId); //e.view.params.PartFieldId);
+        viewModel.set("growerId", e.view.params.GrowerId); //e.view.params.PartFieldId);
+
+
 
         ////hard coding today's date for selected date
         //viewModel.set('selectedDate', new Date().toLocaleDateString());

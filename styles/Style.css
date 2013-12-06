@@ -77,7 +77,7 @@ div.usracc-bkng-hstry-list {
 }
 
 .mt-listitem-title {
-    font-size:16px;
+    font-size: medium;
     font-weight:bold;
     color:black;
 }
@@ -99,8 +99,8 @@ div.usracc-bkng-hstry-list {
 }
 
 .mt-highlight-label {
-    font-size:13px;
-    font-weight:600;
+    font-size: small;
+    font-weight:bold;
     color:black;
 }
 
@@ -160,4 +160,3 @@ div.usracc-bkng-hstry-list {
     text-align:center;
 }
  
-                
